@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="movie-form-container">
+        <img src="{{ movie.Poster }}">
+        <div class="info">
+            <h2>{{ movie.Title }}</h2>
+            <p class="director">by {{ movie.Director }}</p>
+            <div class="released">{{ movie.Released }}</div>
+            <div class="runtime"><span>{{ movie.Runtime }}</span></div>
+            <form method="post">
+                {% csrf_token %}
+
+                <label style="opacity: 0.8">{{ form.minutes_seen.label }}:</label>
+                {{ form.minutes_seen }}
+                {{ form.errors.minutes_seen }}
+                <br>
+                {{ form.is_fully_seen }}{{ form.is_fully_seen.label }}
+                {{ form.errors.is_fully_seen }}
+                <br>
+                <button style="margin-bottom: 5em" class="little-button button" type="submit">
+                    <i class="fa-solid fa-floppy-disk"></i> Save
+                </button>
+            </form>
+            {% if movie.exists %}
+                <a id="form-delete-button" class="button little-button" href="{% url 'movie-delete' movie.id %}"><i
+                        class="fa-solid fa-trash-can"></i> Delete</a>
+            {% endif %}
+        </div>
+    </div>
+    {#    <script lang="">#}
+    {#        minutes_field = document.querySelector('#id_minutes_seen')#}
+    {#        minutes_info = document.querySelectorAll('.info')[1].innerText.replace( /^\D+/g, '');#}
+    {#        console.log(minutes_field)#}
+    {#        console.log("HI")#}
+    {#        minutes_field.setAttribute('max', minutes_info)#}
+    {#    </script>#}
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="add-button-wrapper">
+        <a class="add-movie-button button" href="{% url 'movie-search' %}"><i class="fa-solid fa-plus"></i>Add movie</a>
+    </div>
+    <div class="movies-wrapper">
+        {% for movie in movies %}
+            {#            <div class="movie-container">#}
+            {#                <img src="{{ movie.poster_url }}">#}
+            {#                <div class="info">#}
+            {#                    <div class="info__text">#}
+            {#                        <div class="released"><span>{{ movie.release_year }}</span></div>#}
+            {#                        <h2>{{ movie.title }}</h2>#}
+            {#                        <div class="buttons-row">#}
+            {#                            <a class="button little-button" href="{% url 'movie-add' movie.imdb_id %}"><i#}
+            {#                                    class="fa-solid fa-pen-to-square"></i> Edit</a>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                    <div style="width: {{ movie.percent_seen }}%" class="progress"></div>#}
+            {#                </div>#}
+            {#            </div>#}
+
+            <div class="movie-container">
+                <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+
+                <div class="info">
+                    <div class="info-text">
+                        <h2>{{ movie.title }}</h2>
+                        <p class="released">{{ movie.release_year }}</p>
+                    </div>
+                    <div style="width: {{ movie.percent_seen }}%" class="progress"></div>
+                    <a class="link-cancel" href="{% url 'movie-add' movie.imdb_id %}">
+
+                        <div class="overlay">
+                            <p>{{ movie.minutes_seen_formatted }} / {{ movie.runtime_formatted }}</p>
+                        </div>
+                    </a>
+                    <a class="delete-movie-button" href="{% url 'movie-delete' movie.id %}"><i
+                            class="fa-solid fa-circle-xmark"></i></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

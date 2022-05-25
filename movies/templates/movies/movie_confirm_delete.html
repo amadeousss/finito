@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" style="padding: 20px">
+        {% csrf_token %}
+        <p style="text-align: center; color: #2568FB; margin-top: 30vh">Are you sure you want to delete "{{ movie.title }}"?</p>
+        <div style="display: flex; justify-content: center">
+            <button style="margin: 1em" class="button" type="submit">
+                <i class="fa-solid fa-trash-can"></i> Delete
+            </button>
+        </div>
+    </form>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <form class="search-form" method="get">
+        <input placeholder="Type a movie's name" type="text" name="search-area" value="{{ search_input }}">
+        <button class="button" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+    </form>
+    {% if not error_message %}
+        <div class="movies-wrapper">
+            {% for movie in movies %}
+                <div class="movie-container">
+                    <img src="{{ movie.Poster }}">
+                    <div class="info">
+                        <div class="info__text">
+                            <h2>{{ movie.Title }}</h2>
+                            <p  class="released">{{ movie.Year }}</p>
+                            <div class="buttons-row">
+                                {% if not movie.is_in_db %}
+                                    <a class="button little-button" href="{% url 'movie-add' movie.imdbID %}"><i
+                                            class="fa-solid fa-plus"></i> Add</a>
+                                {% else %}
+                                    <a class="button little-button" href="{% url 'movie-add' movie.imdbID %}"><i
+                                            class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div style="width: {{ movie.percent_seen }}%" class="progress"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h1 style="text-align: center">
+            {{ error_message }}
+        </h1>
+    {% endif %}
+{% endblock %}

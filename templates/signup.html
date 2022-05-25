@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <h2>Sign up</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label>{{ form.email.label }}:</label>
+            {{ form.email }}
+            {{ form.errors.email }} {# username errors #}
+
+            <label>{{ form.username.label }}:</label>
+            {{ form.username }}
+            {{ form.errors.username }} {# username errors #}
+
+            <label>{{ form.password1.label }}:</label>
+            {{ form.password1 }}
+
+            <label>{{ form.password2.label }}:</label>
+            {{ form.password2 }}
+
+            {% if not form.errors.username %}
+                {{ form.errors.password2 }} {# password errors #}
+            {% endif %}
+
+            <button class="button little-button" type="submit">
+                Sign Up
+            </button>
+        </form>
+        <p style="margin-top: 1em;">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+    </div>
+    <style>
+        .wrapper {
+            margin: 5em auto;
+            background: linear-gradient(132deg, rgba(50, 61, 96, 1) 11%, rgba(28, 37, 65, 1) 50%, rgba(15, 20, 34, 1) 95%);
+            padding: 3em 5em;
+            max-width: 800px;
+            display: flex;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 32px;
+        }
+
+        input[type=text], input[type=password], input[type=email] {
+            background-color: transparent !important;
+            border: none;
+            border-bottom: 1px solid #FECD45;
+            outline: none;
+            color: white;
+            font-family: "Inter", sans-serif;
+            display: block;
+            margin-bottom: 1em;
+            font-size: 1.2em;
+        }
+
+        form input {
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 1em;
+        }
+
+        .errorlist li {
+            color: #f16060;
+            margin-bottom: 1em;
+        }
+
+        label {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+    </style>
+{% endblock %}

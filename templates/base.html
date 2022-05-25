@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Title{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700&family=Montserrat:wght@700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+
+<header>
+    <div class="header">
+        <a class="link-cancel" href="{% url 'home' %}"><h2>Finito.</h2></a>
+        {% if user.is_authenticated %}
+            <ul>
+                <li>
+                    <a href="{% url 'home' %}"><i style="margin-right: 0.5em;"
+                                                  class="fa-solid fa-user"></i>{{ user.username }}</a><br>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}"><i style="margin-right: 0.5em;"
+                                                    class="fa-solid fa-arrow-right-from-bracket"></i>Log out</a>
+                </li>
+            </ul>
+        {% else %}
+            <div>
+                <a href="{% url 'login' %}">Log in</a> or
+                <a href="{% url 'signup' %}">Sign up</a>
+            </div>
+        {% endif %}
+    </div>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <a class="add-movie-button button" href="{% url 'movie-search' %}"><i class="fa-solid fa-plus"></i>Add movie</a>
+    <div class="movies-wrapper">
+        {% for movie in movies %}
+            <div class="movie-container">
+                <img src="{{ movie.poster_url }}">
+                <div class="info">
+                    <div class="info__text">
+                        <h2>{{ movie.title }}</h2>
+                        <div class="released"><span>{{ movie.release_year }}</span></div>
+                        <p>{{ movie.minutes_seen_formatted }} / {{ movie.runtime_formatted }}</p>
+                        <div class="buttons-row">
+                            <a class="button little-button" href="{% url 'movie-add' movie.imdb_id %}"><i
+                                    class="fa-solid fa-pen-to-square"></i> Edit</a>
+                        </div>
+                    </div>
+                    <div style="width: {{ movie.percent_seen }}%" class="progress"></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
